@@ -8,7 +8,7 @@ This application is designed to facilitate personalized nutritional consultation
 - [Trello](https://trello.com/invite/b/671e1810b3b2ed1e31403ea8/ATTI47001580ad96fcc50e5c546e0f9f36ec3F47BD73/nutritionalconsultationsfollowup) 
 
 
-## User Schema psedo code 
+## User Schema pseudo code
 ```javascript
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -64,4 +64,142 @@ const FollowUp = mongoose.model('FollowUp', followUpSchema);
 const NutritionPlan = mongoose.model('NutritionPlan', nutritionPlanSchema);
 
 module.exports = { User, ClientData, Subscription, FollowUp, NutritionPlan };
+```
+
+
+
+# App Implementation Pseudocode
+```pseudocode
+
+
+// 1. App Initialization
+function initializeApp() {
+    connect to MongoDB database
+    set up Express server
+    configure middleware (bodyParser, session, etc.)
+    configure routes (user, clientData, subscription, followUp, nutritionPlan)
+    start server on specified port
+}
+
+// 2. User Authentication
+
+// User Registration
+function registerUser(name, email, password, role) {
+    if (email already exists) {
+        return "Email already registered."
+    } else {
+        hash password
+        create new User in the database with provided details
+        return "Registration successful."
+    }
+}
+
+// User Login
+function loginUser(email, password) {
+    retrieve user by email
+    if (user exists) {
+        if (password matches) {
+            create session for user
+            return "Login successful."
+        } else {
+            return "Invalid password."
+        }
+    } else {
+        return "User not found."
+    }
+}
+
+// User Logout
+function logoutUser(session) {
+    destroy session
+    return "Logout successful."
+}
+
+// 3. Client Data Management
+
+// Submit Health Data
+function submitHealthData(clientID, weight, height, age, allergies) {
+    create new ClientData entry
+    associate with clientID
+    return "Health data submitted successfully."
+}
+
+// Retrieve Client Health Data
+function getClientHealthData(clientID) {
+    retrieve ClientData by clientID
+    return ClientData
+}
+
+// 4. Subscription Management
+
+// Create Subscription
+function createSubscription(clientID, packageType) {
+    if (packageType not in ['Basic', 'Premium']) {
+        return "Invalid package type."
+    } else {
+        create new Subscription entry
+        set startDate to current date
+        set endDate based on package duration
+        return "Subscription created successfully."
+    }
+}
+
+// Get Subscription Details
+function getSubscriptionDetails(clientID) {
+    retrieve Subscription by clientID
+    return Subscription details
+}
+
+// 5. Follow-Up Management
+
+// Log Weekly Follow-Up
+function logWeeklyFollowUp(clientID, nutritionistID, notes) {
+    create new FollowUp entry
+    associate with clientID and nutritionistID
+    return "Follow-up logged successfully."
+}
+
+// Retrieve Follow-Up Notes
+function getFollowUpNotes(clientID) {
+    retrieve FollowUp entries for clientID
+    return list of FollowUp entries
+}
+
+// 6. Nutrition Plan Management
+
+// Create Nutrition Plan
+function createNutritionPlan(clientID, nutritionistID, caloricIntake, mealSuggestions) {
+    create new NutritionPlan entry
+    associate with clientID and nutritionistID
+    return "Nutrition plan created successfully."
+}
+
+// Get Nutrition Plan Details
+function getNutritionPlan(clientID) {
+    retrieve NutritionPlan by clientID
+    return NutritionPlan details
+}
+
+// 7. Dashboard Display
+
+// Client Dashboard
+function displayClientDashboard(clientID) {
+    clientData = getClientHealthData(clientID)
+    subscriptionDetails = getSubscriptionDetails(clientID)
+    followUpNotes = getFollowUpNotes(clientID)
+    display clientData, subscriptionDetails, followUpNotes
+}
+
+// Nutritionist Dashboard
+function displayNutritionistDashboard(nutritionistID) {
+    clients = getClientsForNutritionist(nutritionistID)
+    for each client in clients {
+        clientData = getClientHealthData(client.id)
+        followUpNotes = getFollowUpNotes(client.id)
+        display clientData, followUpNotes
+    }
+}
+
+
+
 ```
