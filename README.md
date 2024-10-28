@@ -8,198 +8,208 @@ This application is designed to facilitate personalized nutritional consultation
 - [Trello](https://trello.com/invite/b/671e1810b3b2ed1e31403ea8/ATTI47001580ad96fcc50e5c546e0f9f36ec3F47BD73/nutritionalconsultationsfollowup) 
 
 
-## User Schema pseudo code
+## User Schema
+# user.js
 ```javascript
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-// ClientData Schema (Referenced by User)
-const clientDataSchema = new Schema({
-  weight: { type: Number },
-  height: { type: Number },
-  age: { type: Number },
-  allergies: [String],
-  userID: { type: Schema.Types.ObjectId, ref: 'User', unique: true }, // Each ClientData is associated with one User
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true }
 });
 
-// Subscription Schema (Referenced by User)
-const subscriptionSchema = new Schema({
-  packageType: { type: String, enum: ['Basic', 'Premium'] },
-  startDate: { type: Date },
-  endDate: { type: Date },
-  paymentStatus: { type: String, enum: ['Paid', 'Unpaid'] },
-  userID: { type: Schema.Types.ObjectId, ref: 'User' }, // Each Subscription is associated with one User
-});
-
-// FollowUp Schema (Referenced by User)
-const followUpSchema = new Schema({
-  timestamp: { type: Date, default: Date.now },
-  notes: { type: String },
-  userID: { type: Schema.Types.ObjectId, ref: 'User' }, // References the client
-  nutritionistID: { type: Schema.Types.ObjectId, ref: 'User' }, // References the nutritionist
-});
-
-// NutritionPlan Schema (Referenced by User)
-const nutritionPlanSchema = new Schema({
-  caloricIntake: { type: Number },
-  mealSuggestions: [String],
-  userID: { type: Schema.Types.ObjectId, ref: 'User' }, // References the client
-  nutritionistID: { type: Schema.Types.ObjectId, ref: 'User' }, // References the nutritionist
-});
-
-// User Schema (Referenced in other schemas)
-const userSchema = new Schema({
-  role: { type: String, enum: ['Client', 'Nutritionist'] },
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  phone: { type: String },
-});
-
-// Models
-const User = mongoose.model('User', userSchema);
-const ClientData = mongoose.model('ClientData', clientDataSchema);
-const Subscription = mongoose.model('Subscription', subscriptionSchema);
-const FollowUp = mongoose.model('FollowUp', followUpSchema);
-const NutritionPlan = mongoose.model('NutritionPlan', nutritionPlanSchema);
-
-module.exports = { User, ClientData, Subscription, FollowUp, NutritionPlan };
+module.exports = mongoose.model('User', userSchema);
 ```
 
+# healthData.js
+```javascript
+const mongoose = require('mongoose');
 
+const healthDataSchema = new mongoose.Schema({
+  weight: { type: Number, required: true },
+  height: { type: Number, required: true },
+  age: { type: Number, required: true },
+  activityLevel: { type: String, enum: ['sedentary', 'light', 'moderate', 'heavy', 'very heavy'], required: true },
+  allergies: { type: [String], default: [] },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+});
 
-# App Implementation Pseudocode
-```pseudocode
+module.exports = mongoose.model('HealthData', healthDataSchema);
 
+```
 
-// 1. App Initialization
-function initializeApp() {
-    connect to MongoDB database
-    set up Express server
-    configure middleware (bodyParser, session, etc.)
-    configure routes (user, clientData, subscription, followUp, nutritionPlan)
-    start server on specified port
-}
+# nutritionPlan.js
+```javascript
+const mongoose = require('mongoose');
 
-// 2. User Authentication
+const nutritionPlanSchema = new mongoose.Schema({
+  dailyCalorieIntake: { type: Number, required: true },
+  meals: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Meal' }],
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+});
 
-// User Registration
-function registerUser(name, email, password, role) {
-    if (email already exists) {
-        return "Email already registered."
-    } else {
-        hash password
-        create new User in the database with provided details
-        return "Registration successful."
-    }
-}
+module.exports = mongoose.model('NutritionPlan', nutritionPlanSchema);
 
-// User Login
-function loginUser(email, password) {
-    retrieve user by email
-    if (user exists) {
-        if (password matches) {
-            create session for user
-            return "Login successful."
-        } else {
-            return "Invalid password."
-        }
-    } else {
-        return "User not found."
-    }
-}
+```
 
-// User Logout
-function logoutUser(session) {
-    destroy session
-    return "Logout successful."
-}
+# meal.js.js
+```javascript
+const mongoose = require('mongoose');
 
-// 3. Client Data Management
+const mealSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  calories: { type: Number, required: true },
+  mealTime: { type: String, enum: ['breakfast', 'lunch', 'dinner', 'snack'], required: true },
+  ingredients: { type: [String], required: true }
+});
 
-// Submit Health Data
-function submitHealthData(clientID, weight, height, age, allergies) {
-    create new ClientData entry
-    associate with clientID
-    return "Health data submitted successfully."
-}
+module.exports = mongoose.model('Meal', mealSchema);
 
-// Retrieve Client Health Data
-function getClientHealthData(clientID) {
-    retrieve ClientData by clientID
-    return ClientData
-}
+```
+# Wireframe
+## Sign-Up/Log-In Page
 
-// 4. Subscription Management
+A form where users can register or log in to their account.
 
-// Create Subscription
-function createSubscription(clientID, packageType) {
-    if (packageType not in ['Basic', 'Premium']) {
-        return "Invalid package type."
-    } else {
-        create new Subscription entry
-        set startDate to current date
-        set endDate based on package duration
-        return "Subscription created successfully."
-    }
-}
+- **Fields**: Username, Password, Sign-Up and Log-In buttons.
 
-// Get Subscription Details
-function getSubscriptionDetails(clientID) {
-    retrieve Subscription by clientID
-    return Subscription details
-}
+## User Dashboard
 
-// 5. Follow-Up Management
+Display user's health data and a navigation menu to access different sections like health data, nutrition plan, and meal suggestions.
 
-// Log Weekly Follow-Up
-function logWeeklyFollowUp(clientID, nutritionistID, notes) {
-    create new FollowUp entry
-    associate with clientID and nutritionistID
-    return "Follow-up logged successfully."
-}
+- **Buttons** for updating health data and managing the nutrition plan.
 
-// Retrieve Follow-Up Notes
-function getFollowUpNotes(clientID) {
-    retrieve FollowUp entries for clientID
-    return list of FollowUp entries
-}
+## Health Data Form
 
-// 6. Nutrition Plan Management
+A form for entering or updating health data.
 
-// Create Nutrition Plan
-function createNutritionPlan(clientID, nutritionistID, caloricIntake, mealSuggestions) {
-    create new NutritionPlan entry
-    associate with clientID and nutritionistID
-    return "Nutrition plan created successfully."
-}
+- **Fields**: Weight, Height, Age, Activity Level (dropdown), Allergies (multiple select).
+- **Submit button** for saving changes.
 
-// Get Nutrition Plan Details
-function getNutritionPlan(clientID) {
-    retrieve NutritionPlan by clientID
-    return NutritionPlan details
-}
+## Nutrition Plan Page
 
-// 7. Dashboard Display
+Displays the calculated daily calorie intake and meal suggestions (breakfast, lunch, dinner, snacks).
 
-// Client Dashboard
-function displayClientDashboard(clientID) {
-    clientData = getClientHealthData(clientID)
-    subscriptionDetails = getSubscriptionDetails(clientID)
-    followUpNotes = getFollowUpNotes(clientID)
-    display clientData, subscriptionDetails, followUpNotes
-}
+- **Option** to update or regenerate the meal plan.
+- **Show meals** with their calorie distribution and the ingredients list (filtered by allergies).
 
-// Nutritionist Dashboard
-function displayNutritionistDashboard(nutritionistID) {
-    clients = getClientsForNutritionist(nutritionistID)
-    for each client in clients {
-        clientData = getClientHealthData(client.id)
-        followUpNotes = getFollowUpNotes(client.id)
-        display clientData, followUpNotes
-    }
-}
+## Meal Details Page
 
+Show the details of each meal, including the name, calorie content, meal time, and list of ingredients.
 
+- **Option to customize the meal** (e.g., swap ingredients).
+
+# Pseudo Code
+## 1. User Authentication (Sign-Up/Log-In)
+
+```pseudo
+FUNCTION signUp(username, password):
+    IF username or password is empty:
+        RETURN "Error: Username and password required"
+    IF username already exists:
+        RETURN "Error: Username already taken"
+    CREATE newUser with username and hashed password
+    SAVE newUser to database
+    RETURN "Sign-Up Successful"
+
+FUNCTION logIn(username, password):
+    FIND user by username
+    IF user does not exist:
+        RETURN "Error: User not found"
+    VERIFY password with the stored hashed password
+    IF password does not match:
+        RETURN "Error: Invalid password"
+    CREATE session for user
+    RETURN "Log-In Successful"
+    ```
+
+2. Health Data Management
+
+FUNCTION enterHealthData(userId, weight, height, age, activityLevel, allergies):
+    IF any required field is empty:
+        RETURN "Error: All fields are required"
+    FIND HealthData by userId
+    IF HealthData exists:
+        UPDATE HealthData with new values
+    ELSE:
+        CREATE new HealthData with given values
+    SAVE HealthData to database
+    RETURN "Health Data Saved Successfully"
+
+FUNCTION viewHealthData(userId):
+    FIND HealthData by userId
+    IF HealthData does not exist:
+        RETURN "No Health Data Available"
+    RETURN HealthData
+
+FUNCTION deleteHealthData(userId):
+    FIND HealthData by userId
+    IF HealthData does not exist:
+        RETURN "Error: No Health Data to delete"
+    DELETE HealthData
+    RETURN "Health Data Deleted Successfully"
+3. Nutrition Plan Calculation (Harris-Benedict Equation)
+
+FUNCTION calculateDailyCalories(weight, height, age, activityLevel, gender):
+    IF gender is "male":
+        BMR = 66.47 + (13.75 * weight) + (5.003 * height) - (6.755 * age)
+    ELSE:
+        BMR = 655.09 + (9.563 * weight) + (1.849 * height) - (4.675 * age)
+
+    SWITCH activityLevel:
+        CASE "sedentary":
+            dailyCalories = BMR * 1.2
+        CASE "light":
+            dailyCalories = BMR * 1.375
+        CASE "moderate":
+            dailyCalories = BMR * 1.55
+        CASE "heavy":
+            dailyCalories = BMR * 1.725
+        CASE "very heavy":
+            dailyCalories = BMR * 1.9
+        DEFAULT:
+            dailyCalories = BMR * 1.2
+
+    RETURN dailyCalories
+4. Meal Plan Generation
+
+FUNCTION generateMealPlan(userId, dailyCalories):
+    FIND user's allergies
+    meals = []
+    caloriesLeft = dailyCalories
+
+    FOR EACH mealTime in ["breakfast", "lunch", "dinner", "snack"]:
+        mealCalories = ALLOCATE calories for mealTime
+        availableMeals = FIND Meals WHERE calories <= mealCalories AND ingredients do not include user's allergies
+        selectedMeal = RANDOMLY select from availableMeals
+        ADD selectedMeal to meals
+        SUBTRACT selectedMeal.calories from caloriesLeft
+
+    SAVE meals to NutritionPlan for userId
+    RETURN "Meal Plan Generated Successfully"
+5. Meal Customization
+
+FUNCTION customizeMeal(nutritionPlanId, mealId, newMeal):
+    FIND NutritionPlan by nutritionPlanId
+    IF NutritionPlan does not exist:
+        RETURN "Error: Nutrition Plan not found"
+    FIND meal by mealId in NutritionPlan
+    IF meal does not exist:
+        RETURN "Error: Meal not found in Nutrition Plan"
+    REPLACE meal with newMeal
+    SAVE updated NutritionPlan
+    RETURN "Meal Customized Successfully"
+6. Confirmation Messages
+
+FUNCTION displayConfirmationMessage(action):
+    SWITCH action:
+        CASE "updateHealthData":
+            RETURN "Your health data has been updated successfully."
+        CASE "updateNutritionPlan":
+            RETURN "Your nutrition plan has been updated successfully."
+        CASE "deleteHealthData":
+            RETURN "Your health data has been deleted successfully."
+        DEFAULT:
+            RETURN "Action completed successfully."
 
 ```
