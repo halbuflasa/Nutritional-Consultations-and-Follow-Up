@@ -9,7 +9,7 @@ This application is designed to facilitate personalized nutritional consultation
 
 
 ## User Schema
-# user.js
+### user.js
 ```javascript
 const mongoose = require('mongoose');
 
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
 module.exports = mongoose.model('User', userSchema);
 ```
 
-# healthData.js
+### healthData.js
 ```javascript
 const mongoose = require('mongoose');
 
@@ -38,7 +38,7 @@ module.exports = mongoose.model('HealthData', healthDataSchema);
 
 ```
 
-# nutritionPlan.js
+### nutritionPlan.js
 ```javascript
 const mongoose = require('mongoose');
 
@@ -52,7 +52,7 @@ module.exports = mongoose.model('NutritionPlan', nutritionPlanSchema);
 
 ```
 
-# meal.js.js
+### meal.js.js
 ```javascript
 const mongoose = require('mongoose');
 
@@ -67,40 +67,40 @@ module.exports = mongoose.model('Meal', mealSchema);
 
 ```
 # Wireframe
-## Sign-Up/Log-In Page
+### Sign-Up/Log-In Page
 
 A form where users can register or log in to their account.
 
 - **Fields**: Username, Password, Sign-Up and Log-In buttons.
 
-## User Dashboard
+### User Dashboard
 
 Display user's health data and a navigation menu to access different sections like health data, nutrition plan, and meal suggestions.
 
 - **Buttons** for updating health data and managing the nutrition plan.
 
-## Health Data Form
+### Health Data Form
 
 A form for entering or updating health data.
 
 - **Fields**: Weight, Height, Age, Activity Level (dropdown), Allergies (multiple select).
 - **Submit button** for saving changes.
 
-## Nutrition Plan Page
+### Nutrition Plan Page
 
 Displays the calculated daily calorie intake and meal suggestions (breakfast, lunch, dinner, snacks).
 
 - **Option** to update or regenerate the meal plan.
 - **Show meals** with their calorie distribution and the ingredients list (filtered by allergies).
 
-## Meal Details Page
+### Meal Details Page
 
 Show the details of each meal, including the name, calorie content, meal time, and list of ingredients.
 
 - **Option to customize the meal** (e.g., swap ingredients).
 
 # Pseudo Code
-## 1. User Authentication (Sign-Up/Log-In)
+### 1. User Authentication (Sign-Up/Log-In)
 
 ```pseudo
 FUNCTION signUp(username, password):
@@ -121,10 +121,10 @@ FUNCTION logIn(username, password):
         RETURN "Error: Invalid password"
     CREATE session for user
     RETURN "Log-In Successful"
-    ```
+```
 
-2. Health Data Management
-
+### Health Data Management
+``` pseudo
 FUNCTION enterHealthData(userId, weight, height, age, activityLevel, allergies):
     IF any required field is empty:
         RETURN "Error: All fields are required"
@@ -148,8 +148,10 @@ FUNCTION deleteHealthData(userId):
         RETURN "Error: No Health Data to delete"
     DELETE HealthData
     RETURN "Health Data Deleted Successfully"
-3. Nutrition Plan Calculation (Harris-Benedict Equation)
-
+```
+    
+### 3. Nutrition Plan Calculation (Harris-Benedict Equation)
+``` pseudo
 FUNCTION calculateDailyCalories(weight, height, age, activityLevel, gender):
     IF gender is "male":
         BMR = 66.47 + (13.75 * weight) + (5.003 * height) - (6.755 * age)
@@ -171,8 +173,9 @@ FUNCTION calculateDailyCalories(weight, height, age, activityLevel, gender):
             dailyCalories = BMR * 1.2
 
     RETURN dailyCalories
-4. Meal Plan Generation
-
+```
+### 4. Meal Plan Generation
+``` pseudo
 FUNCTION generateMealPlan(userId, dailyCalories):
     FIND user's allergies
     meals = []
@@ -187,8 +190,10 @@ FUNCTION generateMealPlan(userId, dailyCalories):
 
     SAVE meals to NutritionPlan for userId
     RETURN "Meal Plan Generated Successfully"
-5. Meal Customization
+```
 
+### 5. Meal Customization
+``` pseudo
 FUNCTION customizeMeal(nutritionPlanId, mealId, newMeal):
     FIND NutritionPlan by nutritionPlanId
     IF NutritionPlan does not exist:
@@ -199,8 +204,9 @@ FUNCTION customizeMeal(nutritionPlanId, mealId, newMeal):
     REPLACE meal with newMeal
     SAVE updated NutritionPlan
     RETURN "Meal Customized Successfully"
-6. Confirmation Messages
-
+```
+### 6. Confirmation Messages
+``` pseudo
 FUNCTION displayConfirmationMessage(action):
     SWITCH action:
         CASE "updateHealthData":
@@ -211,5 +217,4 @@ FUNCTION displayConfirmationMessage(action):
             RETURN "Your health data has been deleted successfully."
         DEFAULT:
             RETURN "Action completed successfully."
-
 ```
