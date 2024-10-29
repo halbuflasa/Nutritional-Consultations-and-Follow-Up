@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-const Listing = require('../models/healthData');
+const HealthData = require('../models/healthData');
 
 router.get('/',async(req, res)=>{
 try{
-
-res.render('healthData/index.ejs');
+const populatedHealthData = await HealthData.find({}).populate('userId');
+console.log('Populated Health Data:', populatedHealthData);
+res.render('healthData/index.ejs',{
+    healthData: populatedHealthData,
+});
 }
 
 catch(error){
@@ -31,11 +34,21 @@ router.get('/new', async (req, res) => {
 
   router.post('/', async (req, res)=>{
    req.body.userId = req.session.user._id; 
-   await Listing.create(req.body);
+   await HealthData.create(req.body);
    console.log(req.body);
    res.redirect('/healthData');
   });
 
+  router.get('/:healthDataId', async (req, res) => {
+    try {
+        const populatedHealthData = await HealthData.findById(req.params.healthDataId).populate('userId');
+        console.log('healthDataId:', req.params.healthDataId);
+        res.render('healthData/show.ejs', {healthData: populatedHealthData,});
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
+});
 
 
 module.exports = router;

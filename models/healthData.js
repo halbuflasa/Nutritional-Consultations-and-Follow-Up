@@ -19,6 +19,11 @@ const healthDataSchema = new mongoose.Schema({
         required: true,
        
     },
+    name:{
+        type : String, 
+        required: true,
+       
+    },
     activityLevel: {
         type : String, 
         enum: ['sedentary', 'light', 'moderate', 'heavy', 'very heavy'], 

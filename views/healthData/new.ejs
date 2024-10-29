@@ -10,6 +10,9 @@
     <%- include('../partials/_navbar.ejs') %>
     <h1>New Personal Health Metrics</h1>
     <form action="/healthData" method="POST">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required />
+      
         <label for="age">Age (15-80)</label>
         <input type="number" name="age" id="age" min="15" max="80" required />
       

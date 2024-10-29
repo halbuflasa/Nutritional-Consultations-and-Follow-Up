@@ -7,7 +7,19 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>Health Data</h1>
+    <h1>Clients Health Records</h1>
 
+    <ul>
+        <% healthData.forEach((healthData) => { %>
+      
+            <li>
+                <%= healthData.name %>'s record submitted by <%= healthData.userId ? healthData.userId.username : "Unknown" %>
+                <a href="/healthData/<%=healthData._id %>">View more details</a>
+            </li>
+             
+           
+        <% }) %>
+    </ul>
+<a href="healthData/new">Add a New Client</a>
 </body>
 </html>
