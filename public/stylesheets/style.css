@@ -1,0 +1,39 @@
+/* Form container styling */
+form {
+    width: 100%;
+    max-width: 400px; /* Set a max-width for better layout */
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Block styling for form elements */
+  form label, 
+  form input[type="number"], 
+  form select, 
+  form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px; /* Space between elements */
+  }
+  
+  /* Inline styling for radio buttons and their labels */
+  .radio-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between radio buttons */
+    margin-bottom: 15px; /* Space after the radio button group */
+  }
+  
+  .radio-group label {
+    display: inline; /* Keep label inline with the radio button */
+  }
+  
+  /* Radio buttons styling */
+  form input[type="radio"] {
+    display: inline-block; /* Ensure radio button remains inline */
+    width: auto; /* Reset width */
+  }
+  

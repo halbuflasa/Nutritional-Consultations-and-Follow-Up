@@ -123,7 +123,7 @@ FUNCTION logIn(username, password):
     RETURN "Log-In Successful"
 ```
 
-### Health Data Management
+### 2. Health Data Management
 ``` pseudo
 FUNCTION enterHealthData(userId, weight, height, age, activityLevel, allergies):
     IF any required field is empty:

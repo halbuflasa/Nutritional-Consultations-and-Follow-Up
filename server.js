@@ -6,10 +6,12 @@ const MongoStore = require('connect-mongo');
 const addUserToViews = require('./middleware/addUserToViews');
 require('dotenv').config();
 require('./config/database');
+const path = require('path');
 
 // Controllers
 const authController = require('./controllers/auth');
 const isSignedIn = require('./middleware/isSignedIn');
+const healthDataController = require('./controllers/healthData');
 
 const app = express();
 // Set the port from environment variable or default to 3000
@@ -23,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 // Morgan for logging HTTP requests
 app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -42,6 +45,7 @@ app.get('/', async (req, res) => {
 });
 
 app.use('/auth', authController);
+app.use('/healthData', healthDataController);
 
 // Protected Routes
 app.use(isSignedIn);
