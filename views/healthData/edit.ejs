@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit <%= healthData.name %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Edit a Health Record </h1>
+    <form action="/healthData/<%=healthData._id %>?_method=PUT" method="POST">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required value="<%=healthData.name %>" />
+      
+        <label for="age">Age (15-80)</label>
+        <input type="number" name="age" id="age" min="15" max="80" required value="<%=healthData.age %>"/>
+      
+        <label for="male">
+            Male <input type="radio" id="male" name="gender" value="male" <%= healthData.gender === 'male' ? 'checked' : '' %> />
+        </label>
+        <label for="female">
+            Female <input type="radio" id="female" name="gender" value="female" <%= healthData.gender === 'female' ? 'checked' : '' %> />
+        </label>
+        
+        <label for="weight">Weight (kg)</label>
+        <input type="number" name="weight" id="weight"  min="0" required value="<%=healthData.weight %>" />
+      
+        <label for="height">Height (cm)</label>
+        <input type="number" name="height" id="height"  min="0" required  value="<%=healthData.height %>"/>
+      
+        <label for="activityLevel">Activity Level</label>
+        <select name="activityLevel" id="activityLevel" required>
+          <option <%=healthData.activityLevel === 'sedentary' ? 'selected' : '' %> value="sedentary">Sedentary</option>
+          <option <%=healthData.activityLevel === 'light' ? 'selected' : '' %> value="light">Light</option>
+          <option <%=healthData.activityLevel === 'moderate' ? 'selected' : '' %> value="moderate">Moderate</option>
+          <option <%=healthData.activityLevel === 'heavy' ? 'selected' : '' %> value="heavy">Heavy</option>
+          <option <%=healthData.activityLevel === 'very heavy' ? 'selected' : '' %>value="very heavy">Very Heavy</option>
+        </select>
+      
+        <button type="submit">Update Health Record</button>
+    </form>    
+</body>
+</html>

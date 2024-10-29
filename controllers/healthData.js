@@ -19,12 +19,7 @@ catch(error){
 });
 
 router.get('/new', async (req, res) => {
-    try{
-        //const existingHealthData = await HealthData.findOne({ userId: req.session.user._id });
-        //if (existingHealthData) {
-            //  redirect to the health data view or edit page 
-           // return  res.redirect('/');
-        //}   
+    try{  
         res.render('healthData/new.ejs')
       }catch(error){
           console.log(error)
@@ -42,8 +37,64 @@ router.get('/new', async (req, res) => {
   router.get('/:healthDataId', async (req, res) => {
     try {
         const populatedHealthData = await HealthData.findById(req.params.healthDataId).populate('userId');
-        console.log('healthDataId:', req.params.healthDataId);
+       // console.log('healthDataId:', req.params.healthDataId);
         res.render('healthData/show.ejs', {healthData: populatedHealthData,});
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
+});
+
+router.delete('/:healthDataId', async (req, res) => {
+    try {
+        const healthData = await HealthData.findById(req.params.healthDataId);
+        
+        if (healthData.userId.equals(req.session.user._id)){
+           await  healthData.deleteOne();
+           res.redirect('/healthData');
+
+        }
+        else{
+            res.send(" You don't have permission to do that.");
+        }
+        
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
+});
+router.get('/:healthDataId/edit', async (req, res) => {
+    try {
+        const currenthealthData = await HealthData.findById(req.params.healthDataId);
+        if (!currenthealthData) {
+            return res.redirect('/');
+        }
+        if (currenthealthData.userId.equals(req.session.user._id)){
+        res.render('healthData/edit.ejs', { healthData: currenthealthData });
+        }
+        else{
+             res.send(" You don't have permission to do that.");  
+        }
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
+});
+
+
+router.put('/:healthDataId', async (req, res) => {
+    try {
+        const currenthealthData = await HealthData.findById(req.params.healthDataId);
+        
+        if (currenthealthData.userId.equals(req.session.user._id)){
+           await  currenthealthData.updateOne(req.body);
+           res.redirect('/healthData');
+
+        }
+        else{
+            res.send(" You don't have permission to do that."); 
+        }
+      
     } catch (error) {
         console.log(error);
         res.redirect('/');

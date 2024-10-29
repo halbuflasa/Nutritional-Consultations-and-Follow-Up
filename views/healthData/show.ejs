@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= healthData.name %>'s' Record</title>
+    <title><%= healthData.name %>'s Record</title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
     <h1><%= healthData.name %>'s Record</h1>
-      <!-- Health Data Details -->
+    
+    <!-- Health Data Details -->
     <ul>
         <li>Age: <%= healthData.age %></li>
         <li>Gender: <%= healthData.gender %></li>
         <li>Weight: <%= healthData.weight %> kg</li>
         <li>Height: <%= healthData.height %> cm</li>
         <li>Activity Level: <%= healthData.activityLevel %></li>
-      
     </ul>
+
     <!-- Nutritionist Responsibility Section -->
-    <h3>Nutrition consult</h3>
+    <h3>Nutrition Consult</h3>
     <% if (healthData.userId && String(healthData.userId._id) === String(user._id)) { %>
         <p>You will be responsible for following up and conducting this consultation.</p>
     <% } else { %>
         <p>The nutritionist responsible for this consultation is <%= healthData.userId ? healthData.userId.username : "Unknown" %>.</p>
     <% } %>
 
-   
+    <a href="/healthData/<%= healthData._id %>/edit">Edit this record</a>
+    
+    <form action="/healthData/<%= healthData._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete this record</button>
+    </form>
 </body>
 </html>
