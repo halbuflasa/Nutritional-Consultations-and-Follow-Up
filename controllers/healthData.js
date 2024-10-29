@@ -29,6 +29,13 @@ router.get('/new', async (req, res) => {
       }
   });
 
+  router.post('/', async (req, res)=>{
+   req.body.userId = req.session.user._id; 
+   await Listing.create(req.body);
+   console.log(req.body);
+   res.redirect('/healthData');
+  });
+
 
 
 module.exports = router;
