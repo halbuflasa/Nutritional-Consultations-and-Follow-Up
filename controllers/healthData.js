@@ -5,10 +5,11 @@ const HealthData = require('../models/healthData');
 
 router.get('/',async(req, res)=>{
 try{
+
 const populatedHealthData = await HealthData.find({}).populate('userId');
 console.log('Populated Health Data:', populatedHealthData);
 res.render('healthData/index.ejs',{
-    healthData: populatedHealthData,
+    healthData: populatedHealthData, 
 });
 }
 

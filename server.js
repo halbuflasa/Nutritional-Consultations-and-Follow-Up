@@ -39,25 +39,18 @@ app.use(
 
 app.use(addUserToViews);
 
-// Public Routes
 app.get('/', async (req, res) => {
+  if (req.session.user) {
+    console.log(req.session.user);
+    return res.redirect(`/users/${req.session.user._id}/healthData`);
+  }
   res.render('index.ejs');
 });
-
 app.use('/auth', authController);
 app.use('/healthData', healthDataController);
-
-// Protected Routes
 app.use(isSignedIn);
+app.use('/users/:userId/healthData', healthDataController);
 
-app.get('/protected', async (req, res) => {
-  if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-  } else {
-    res.sendStatus(404);
-    // res.send('Sorry, no guests allowed.');
-  }
-});
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
