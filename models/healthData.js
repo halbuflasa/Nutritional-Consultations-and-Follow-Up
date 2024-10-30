@@ -24,14 +24,16 @@ const healthDataSchema = new mongoose.Schema({
         required: true,
        
     },
+
     activityLevel: {
         type : String, 
         enum: ['sedentary', 'light', 'moderate', 'heavy', 'very heavy'], 
         required: true,
        
     },
-   // dailyCalorieIntake: { type: Number, required: true },
-
+    
+    BMR: { type: Number }, 
+    dailyCalories: { type: Number } ,
     userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true  },
 });
 

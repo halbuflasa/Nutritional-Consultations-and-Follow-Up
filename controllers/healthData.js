@@ -29,17 +29,24 @@ router.get('/new', async (req, res) => {
 
   router.post('/', async (req, res)=>{
    req.body.userId = req.session.user._id; 
-   await HealthData.create(req.body);
-   console.log(req.body);
+   const healthData = new HealthData(req.body);
+      // Calculate BMR and daily calories using the method defined in the schema
+   const { BMR, dailyCalories } = healthData.calculateDailyCalories();
+   healthData.BMR = BMR;
+   healthData.dailyCalories = dailyCalories;
+   await healthData.save();
+   console.log(healthData);
    res.redirect('/healthData');
   });
 
   router.get('/:healthDataId', async (req, res) => {
     try {
         const populatedHealthData = await HealthData.findById(req.params.healthDataId).populate('userId');
-       // console.log('healthDataId:', req.params.healthDataId);
-        res.render('healthData/show.ejs', {healthData: populatedHealthData,});
-    } catch (error) {
+        if (!populatedHealthData) return res.redirect('/');
+        res.render('healthData/show.ejs', {
+            healthData: populatedHealthData,
+        });
+     } catch(error){
         console.log(error);
         res.redirect('/');
     }
@@ -84,10 +91,21 @@ router.get('/:healthDataId/edit', async (req, res) => {
 
 router.put('/:healthDataId', async (req, res) => {
     try {
-        const currenthealthData = await HealthData.findById(req.params.healthDataId);
+        const currentHealthData = await HealthData.findById(req.params.healthDataId);
         
-        if (currenthealthData.userId.equals(req.session.user._id)){
-           await  currenthealthData.updateOne(req.body);
+        if (currentHealthData.userId.equals(req.session.user._id)){
+            currentHealthData.weight = req.body.weight;
+            currentHealthData.height = req.body.height;
+            currentHealthData.age = req.body.age;
+            currentHealthData.gender = req.body.gender;
+            currentHealthData.activityLevel = req.body.activityLevel;
+            currentHealthData.name = req.body.name;
+             // Recalculate BMR and dailyCalories based on updated fields
+             const { BMR, dailyCalories } = currentHealthData.calculateDailyCalories();
+             currentHealthData.BMR = BMR;
+             currentHealthData.dailyCalories = dailyCalories;
+
+             await currentHealthData.save();
            res.redirect('/healthData');
 
         }

@@ -17,7 +17,14 @@
         <li>Height: <%= healthData.height %> cm</li>
         <li>Activity Level: <%= healthData.activityLevel %></li>
     </ul>
-
+    <!-- Nutrition Plan Section -->
+    <% if (healthData.BMR && healthData.dailyCalories) { %>
+    <h2>Nutrition Plan</h2>
+    <ul>
+        <li>BMR: <%=healthData.BMR.toFixed(2) %> kcal</li>
+        <li>Daily Calorie Intake: <%= healthData.dailyCalories.toFixed(2) %> kcal</li>
+    </ul>
+    <% } %>
     <!-- Nutritionist Responsibility Section -->
     <h3>Nutrition Consult</h3>
     <% if (healthData.userId && String(healthData.userId._id) === String(user._id)) { %>
