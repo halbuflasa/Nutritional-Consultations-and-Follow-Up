@@ -8,34 +8,49 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>New Personal Health Metrics</h1>
-    <form action="/healthData" method="POST">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" required />
+    <div class="container-healthData">
+        <h1>New Personal Health Metrics</h1>
+        <form action="/healthData" method="POST" class="health-metrics-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="age">Age (15-80)</label>
+            <input type="number" name="age" id="age" min="15" max="80" required />
+          </div>
+          
+          <div class="form-group gender-group">
+            <label>Gender</label>
+            <label for="male"><input type="radio" id="male" name="gender" value="male" checked /> Male</label>
+            <label for="female"><input type="radio" id="female" name="gender" value="female" /> Female</label>
+          </div>
       
-        <label for="age">Age (15-80)</label>
-        <input type="number" name="age" id="age" min="15" max="80" required />
+          <div class="form-group">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" name="weight" id="weight" min="0" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="height">Height (cm)</label>
+            <input type="number" name="height" id="height" min="0" required />
+          </div>
       
-         <label for="male"> Male <input type="radio" id="male" name="gender" value="male" checked /></label>
-        <label for="female">Female<input type="radio" id="female" name="gender" value="female" /></label>
-    
-    
-        <label for="weight">Weight (kg)</label>
-        <input type="number" name="weight" id="weight"  min="0" required  />
+          <div class="form-group">
+            <label for="activityLevel">Activity Level</label>
+            <select name="activityLevel" id="activityLevel" required>
+              <option value="sedentary">Sedentary</option>
+              <option value="light">Light</option>
+              <option value="moderate">Moderate</option>
+              <option value="heavy">Heavy</option>
+              <option value="very heavy">Very Heavy</option>
+            </select>
+          </div>
       
-        <label for="height">Height (cm)</label>
-        <input type="number" name="height" id="height"  min="0" required />
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>    
+      </div>
       
-        <label for="activityLevel">Activity Level</label>
-        <select name="activityLevel" id="activityLevel" required>
-          <option value="sedentary">Sedentary</option>
-          <option value="light">Light</option>
-          <option value="moderate">Moderate</option>
-          <option value="heavy">Heavy</option>
-          <option value="very heavy">Very Heavy</option>
-        </select>
-      
-        <button type="submit">Submit</button>
-    </form>    
 </body>
 </html>

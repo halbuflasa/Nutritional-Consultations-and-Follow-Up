@@ -1,281 +1,231 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700');
 
-body {
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    background-color: #f9f7f0;
-  }
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f4f7fa;
+}
 
-  .landing-header {
-    display: flex;
-    flex-direction: row;
-    height: 15%;
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .logo-container {
-    display: flex;
-    flex-direction: row;
-    width: 50%;
-    margin: 20px 35px;
-  }
-  
-  .logo-container > h1 {
-    margin: 0;
-    font-size: 1.4em;
-  }
-  
-  .house-icon {
-    background-image: url('https://cdn-icons-png.flaticon.com/128/11382/11382524.png');
-    width: 1.4em;
-    height: 1.4em;
-    background-repeat: no-repeat;
-    background-size: contain;
-    margin: 2px;
-    padding-left: 5px;
-  }
-  
-  .landing-image {
-    background-image: url('https://images.unsplash.com/photo-1448630360428-65456885c650');
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin: 0 0 0 -8px;
-  }
-  
-  .auth-links,
-  .nav-links {
-    margin: 25px 20px;
-  }
-  
-  .auth-links > a {
-    color: white;
-    padding: 10px 25px;
-    border-radius: 10px;
-    text-decoration: none;
-    margin: 0 10px;
-  }
-  
-  .auth-links > a:first-child {
-    background-color: #274c9c;
-  }
-  
-  .auth-links > a:first-child:hover {
-    background-color: black;
-    color: white;
-  }
-  
-  .auth-links > a:nth-child(2) {
-    background-color: #6f8dae;
-  }
-  
-  .auth-links > a:nth-child(2):hover {
-    background-color: black;
-    color: white;
-  }
-  
-  .nav-links > a {
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-    color: black;
-  }
-  
-  .nav-links > a:hover {
-    color: #6f8dae;
-    text-decoration: underline;
-  }
-  .signup-page,
-.signin-page {
+.container-healthData{
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+.container-healthData h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.section h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.details-list {
+  list-style: none;
+  padding: 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.details-list li {
+  margin-bottom: 8px;
+}
+
+.button-group {
   display: flex;
-  flex-direction: row;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+.btn-link {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #5a67d8;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-link:hover {
+  background-color: #434190;
+}
+
+.inline-form {
+  display: inline;
+}
+
+.delete-btn {
+  background-color: #e53e3e;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c53030;
+}
+.header {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 90%;
+  margin-bottom: 20px;
 }
 
-.signup-form-container-1,
-.signin-form-container-1 {
-  width: 60%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.signup-form-container-2,
-.signin-form-container-2 {
-  padding: 10px 30px 20px;
-  border: 1px solid gray;
-}
-
-.signup-form-container-2 > h1,
-.signin-form-container-2 > h1 {
-  font-weight: normal;
-  text-transform: uppercase;
-  font-size: 1.5em;
-}
-
-.signup-form-container-2 > form,
-.signin-form-container-2 > form {
+.health-metrics-form .form-group {
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
 }
 
-label {
-  font-size: 0.9em;
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #555;
+}
+.health-metrics-form input[type="text"],
+.health-metrics-form input[type="number"],
+.health-metrics-form select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
-input {
-  border: 1px solid rgb(190, 190, 190);
-  border-radius: 10px;
-  margin: 10px 0;
-  width: 15em;
-  padding: 5px;
+.health-metrics-form input[type="text"]:focus,
+.health-metrics-form input[type="number"]:focus,
+.health-metrics-form select:focus {
+  border-color: #5a67d8;
 }
 
-button {
+/* Gender Radio Group Styling */
+.gender-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.gender-group label {
+  font-weight: 500;
+  color: #555;
+}
+
+/* Submit Button */
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #5a67d8;
   border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #434190;
+}
+.btn-add-client {
+  color: #5a67d8;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.btn-add-client:hover {
+  text-decoration: underline;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card {
+  padding: 20px;
+  background-color: #fafafa;
   border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  background-color: #274c9c;
-  padding: 7px 15px;
-  margin: 10px 0;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-button:hover {
-  background-color: black;
+.card h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333333;
 }
 
-.signup-img {
-  background-image: url('https://images.unsplash.com/photo-1600607687486-6cced9976e79');
-  min-height: 110vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 40%;
-  position: relative;
-  z-index: -10;
+.card p {
+  font-size: 14px;
+  color: #666666;
 }
-.signin-img {
-    background-image: url('https://images.unsplash.com/photo-1479839672679-a46483c0e7c8');
-    min-height: 110vh;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 40%;
-    position: relative;
-    z-index: -10;
-    left: -10px;
-  }
-  .index-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 50px;
-    width: 90%;
-  }
-  
-  .index-header > h1 {
-    text-transform: uppercase;
-    font-size: 1.5em;
-  }
-  
-  .index-header > a {
-    padding: 6px 12px;
-    border: 1px solid gray;
-    text-decoration: none;
-    color: black;
-  }
-  
-  .index-header > a:hover {
-    background-color: black;
-    color: white;
-  }
-  
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px 70px;
-  }
-  
-  .card-container > a {
-    padding: 12px 25px;
-    border: 1px solid gray;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    margin: 5px 30px 50px;
-    color: black;
-  }
-  
-  .card-container > a:hover {
-    background-color: black;
-    color: white;
-  }
-  
-  a > h4 {
-    font-weight: normal;
-    font-size: 1em;
-  }
-  .new-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 80%;
-  }
-  
-  .new-form-container {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid gray;
-    padding: 10px 40px;
-  }
-  
-  .new-form-container > h1 {
-    text-transform: uppercase;
-    font-weight: normal;
-    font-size: 1.6em;
-  }
-  
-  .new-form-container > form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .new-form-container > form > input {
-    width: 38em;
-  }
-  
-  .new-form-container > form > button {
-    margin-bottom: 20px;
-  }
-  /* Form container styling */
-form {
-    width: 100%;
-    max-width: 400px; /* Set a max-width for better layout */
-    margin: 0 auto; /* Center the form horizontally */
-    padding: 20px;
-  }
-  
-  /* Block styling for form elements */
-  form label, 
-  form input[type="number"], 
-  form select, 
-  form button {
-    display: block;
-    width: 100%;
-    margin-bottom: 15px; /* Space between elements */
-  }
-  
+
+.btn-view-details {
+  display: inline-block;
+  margin-top: 10px;
+  color: #5a67d8;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.btn-view-details:hover {
+  text-decoration: underline;
+}
+
+
+/* Navigation Bar Styling */
+.nav {
+  width: 100%;
+  background-color: #5a67d8; /* Dark purple background */
+  padding: 15px 0; /* Add some padding for spacing */
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav a {
+  color: #ffffff; /* White text color */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 15px; /* Spacing between links */
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav a:hover {
+  background-color: #434190; /* Slightly darker purple on hover */
+}
+
+
   /* Inline styling for radio buttons and their labels */
   .radio-group {
     display: flex;
@@ -300,9 +250,9 @@ form {
     --form-height:550px;
     --form-width: 900px;
     /*  Sea Green */
-    --left-color: #9fdeaf;
+    --left-color: #434190;
     /*  Light Blue  */
-    --right-color: #96dbe2;
+    --right-color: #128d89;
   }
   
   body, html{
@@ -496,37 +446,8 @@ form {
     color: var(--left-color);
     margin: 0;
   }
-  
-  .social-media-buttons{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 15px;
-  }
-  
-  .social-media-buttons .icon{
-    width: 40px;
-    height: 40px;
-    border: 1px solid #dadada;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 7px;
-  }
-  
-  .small{
-    font-size: 13px;
-    color: grey;
-    font-weight: 200;
-    margin: 5px;
-  }
-  
-  .social-media-buttons .icon svg{
-    width: 25px;
-    height: 25px;
-  }
-  
+
+ 
   #sign-in-form input, #sign-up-form input{
     margin: 12px;
     font-size: 14px;
@@ -544,16 +465,15 @@ form {
     letter-spacing: 1px;
   }
   
-  .forgot-password{
-    font-size: 12px;
-    display: inline-block;
-    border-bottom: 2px solid #efebeb;
-    padding-bottom: 3px;
-  }
-  
-  .forgot-password:hover{
-    cursor: pointer;
-  }
+  /* Style for form labels */
+#sign-up-form label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+
   
   /* 
   ---------------------------

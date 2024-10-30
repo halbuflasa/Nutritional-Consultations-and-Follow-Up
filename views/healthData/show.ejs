@@ -6,39 +6,52 @@
     <title><%= healthData.name %>'s Record</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
-</head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1><%= healthData.name %>'s Record</h1>
     
-    <!-- Health Data Details -->
-    <ul>
-        <li>Age: <%= healthData.age %></li>
-        <li>Gender: <%= healthData.gender %></li>
-        <li>Weight: <%= healthData.weight %> kg</li>
-        <li>Height: <%= healthData.height %> cm</li>
-        <li>Activity Level: <%= healthData.activityLevel %></li>
-    </ul>
-    <!-- Nutrition Plan Section -->
-    <% if (healthData.BMR && healthData.dailyCalories) { %>
-    <h2>Nutrition Plan</h2>
-    <ul>
-        <li>BMR: <%=healthData.BMR.toFixed(2) %> kcal</li>
-        <li>Daily Calorie Intake: <%= healthData.dailyCalories.toFixed(2) %> kcal</li>
-    </ul>
-    <% } %>
-    <!-- Nutritionist Responsibility Section -->
-    <h3>Nutrition Consult</h3>
-    <% if (healthData.userId && String(healthData.userId._id) === String(user._id)) { %>
-        <p>You will be responsible for following up and conducting this consultation.</p>
-    <% } else { %>
-        <p>The nutritionist responsible for this consultation is <%= healthData.userId ? healthData.userId.username : "Unknown" %>.</p>
-    <% } %>
+    <div class="container-healthData">
+        <h1><%= healthData.name %>'s Health Record</h1>
+        
+        <!-- Health Data Details -->
+        <div class="section">
+            <h2>Personal Details</h2>
+            <ul class="details-list">
+                <li><strong>Age:</strong> <%= healthData.age %></li>
+                <li><strong>Gender:</strong> <%= healthData.gender %></li>
+                <li><strong>Weight:</strong> <%= healthData.weight %> kg</li>
+                <li><strong>Height:</strong> <%= healthData.height %> cm</li>
+                <li><strong>Activity Level:</strong> <%= healthData.activityLevel %></li>
+            </ul>
+        </div>
 
-    <a href="/healthData/<%= healthData._id %>/edit">Edit this record</a>
-    
-    <form action="/healthData/<%= healthData._id %>?_method=DELETE" method="POST">
-        <button type="submit">Delete this record</button>
-    </form>
+        <!-- Nutrition Plan Section -->
+        <% if (healthData.BMR && healthData.dailyCalories) { %>
+        <div class="section">
+            <h2>Nutrition Plan</h2>
+            <ul class="details-list">
+                <li><strong>BMR:</strong> <%= healthData.BMR.toFixed(2) %> kcal</li>
+                <li><strong>Daily Calorie Intake:</strong> <%= healthData.dailyCalories.toFixed(2) %> kcal</li>
+            </ul>
+        </div>
+        <% } %>
+
+        <!-- Nutritionist Responsibility Section -->
+        <div class="section">
+            <h2>Nutrition Consult</h2>
+            <% if (healthData.userId && String(healthData.userId._id) === String(user._id)) { %>
+                <p>You will be responsible for following up and conducting this consultation.</p>
+            <% } else { %>
+                <p>The nutritionist responsible for this consultation is <%= healthData.userId ? healthData.userId.username : "Unknown" %>.</p>
+            <% } %>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+            <a href="/healthData/<%= healthData._id %>/edit" class="btn-link">Edit this record</a>
+            <form action="/healthData/<%= healthData._id %>?_method=DELETE" method="POST" class="inline-form">
+                <button type="submit" class="delete-btn">Delete this record</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

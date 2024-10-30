@@ -8,19 +8,21 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>Clients Health Records</h1>
-
-    <ul>
-        <% healthData.forEach((healthData) => { %>
+    <div class="container-healthData">
+        <header class="header">
+          <h1>Clients Health Records</h1>
+          <a href="healthData/new" class="btn-add-client">+ Add a New Client</a>
+        </header>
+        <div class="card-container">
+          <% healthData.forEach((record) => { %>
+            <div class="card">
+              <h3><%= record.name %>'s Record</h3>
+              <p>Submitted by: <strong><%= record.userId ? record.userId.username : "Unknown" %></strong></p>
+              <a href="/healthData/<%=record._id %>" class="btn-view-details">View More Details</a>
+            </div>
+          <% }) %>
+        </div>
+      </div>
       
-            <li>
-                <%= healthData.name %>'s record submitted by <%= healthData.userId ? healthData.userId.username : "Unknown" %>
-                <a href="/healthData/<%=healthData._id %>">View more details</a>
-            </li>
-             
-           
-        <% }) %>
-    </ul>
-<a href="healthData/new">Add a New Client</a>
 </body>
 </html>
