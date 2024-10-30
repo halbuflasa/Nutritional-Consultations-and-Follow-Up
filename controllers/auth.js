@@ -7,7 +7,8 @@ const router = express.Router();
 
 // Sign up
 router.get('/sign-up', async (req, res) => {
-  res.render('auth/sign-up.ejs');
+  // res.render('auth/sign-up.ejs');
+  res.redirect('/')
 });
 
 router.post('/sign-up', async (req, res) => {
@@ -46,7 +47,8 @@ router.post('/sign-up', async (req, res) => {
 
 // Sign in
 router.get('/sign-in', async (req, res) => {
-  res.render('auth/sign-in.ejs');
+  // res.render('auth/sign-in.ejs');
+  res.redirect('/')
 });
 
 router.post('/sign-in', async (req, res) => {
