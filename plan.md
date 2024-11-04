@@ -1,18 +1,11 @@
-# NutriCare: Personalized Nutritional Consultations and Health Management System
+# MEN Stack Nutritional Consultations and Follow-Up with Session Authentication
 
-## Description:
-NutriCare is a streamlined health management system tailored for nutritionists to conduct personalized nutritional consultations and follow-ups with their clients. Built using Node.js, Express, MongoDB, and EJS, NutriCare provides an authenticated, session-based experience with robust CRUD functionality. Designed exclusively for nutritionist use, NutriCare allows professionals to manage client data, create dietary plans, and log follow-up notes—all on behalf of their clients.
+This application is designed to facilitate personalized nutritional consultations and follow-ups between clients and nutritionists. Built using Node.js, Express, MongoDB, and EJS, the app offers an authenticated, session-based experience with full CRUD functionality. Clients can fill out detailed health forms, subscribe to nutrition plans, and track their progress over time, while nutritionists can manage client data, create customized dietary plans, and follow up regularly. The app aims to streamline the consultation process, ensuring a seamless experience for clients and efficient management for nutritionists.
 
 
-## Nutricare App
-Through NutriCare, nutritionists can access a centralized dashboard to view and manage detailed client health records.
-- [nutricare app](https://nutricare-b8e0bab4bf14.herokuapp.com/) 
+## Planinig
 
-- [nutricare app dashboard](public/readme imgs/allrecords.png) 
-Each nutritionist can view all client records within the system but can only edit or update records for their own clients, ensuring data integrity.
-
-- [nutricare app new record](public/readme imgs/newrecord.png) 
-Include filling out health assessment forms
+- [Trello](https://trello.com/invite/b/671e1810b3b2ed1e31403ea8/ATTI47001580ad96fcc50e5c546e0f9f36ec3F47BD73/nutritionalconsultationsfollowup) 
 
 
 ## User Schema
