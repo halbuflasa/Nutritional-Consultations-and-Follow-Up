@@ -6,13 +6,13 @@ NutriCare is a streamlined health management system tailored for nutritionists t
 
 ## Nutricare App
 Through NutriCare, nutritionists can access a centralized dashboard to view and manage detailed client health records.
-- [nutricare app](https://nutricare-b8e0bab4bf14.herokuapp.com/) 
+ [nutricare app](https://nutricare-b8e0bab4bf14.herokuapp.com/) 
 
-- [nutricare app dashboard](public/readme imgs/allrecords.png) 
+- ![NutriCare App Dashboard](public/readme imgs/allrecords.png)  
 Each nutritionist can view all client records within the system but can only edit or update records for their own clients, ensuring data integrity.
 
-- [nutricare app new record](public/readme imgs/newrecord.png) 
-Include filling out health assessment forms
+- ![NutriCare App New Record](public/readme imgs/newrecord.png)  
+Include filling out health assessment forms.
 
 
 ## User Schema
