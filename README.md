@@ -24,7 +24,7 @@ Through NutriCare, nutritionists can access a centralized dashboard to view and 
 ## Routes 
 | HTTP Method | Route                             | Description                                                                                      | Middleware                   |
 |-------------|-----------------------------------|--------------------------------------------------------------------------------------------------|-------------------------------|
-| **GET**     | `/`                               | Redirects signed-in users to their health data page or renders the home page for non-users       | `addUserToViews`              |
+| **GET**     | `/`                               | Redirects signed-in users to their health data page or renders the home page for non-users to sign-in or sign-up      | `addUserToViews`              |
 | **GET**     | `/auth/sign-up`                   | Renders the sign-up page (currently redirects to `/`)                                            |                               |
 | **POST**    | `/auth/sign-up`                   | Handles user sign-up, creates a new user, and starts a session                                   |                               |
 | **GET**     | `/auth/sign-in`                   | Renders the sign-in page (currently redirects to `/`)                                            |                               |
